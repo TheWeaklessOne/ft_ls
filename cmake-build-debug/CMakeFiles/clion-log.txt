@@ -1,0 +1,12 @@
+/Users/plettie/Desktop/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/plettie/Desktop/ft_ls
+CMake Error: Parse error in cache file /Users/plettie/Desktop/ft_ls/cmake-build-debug/CMakeCache.txt on line 2. Offending entry: <<<<<<< HEAD
+CMake Error: Parse error in cache file /Users/plettie/Desktop/ft_ls/cmake-build-debug/CMakeCache.txt on line 8. Offending entry: >>>>>>> 530f3d886d4048454802e7ef0936100a77ebec8b
+CMake Error: Parse error in cache file /Users/plettie/Desktop/ft_ls/cmake-build-debug/CMakeCache.txt on line 206. Offending entry: <<<<<<< HEAD
+CMake Error: Parse error in cache file /Users/plettie/Desktop/ft_ls/cmake-build-debug/CMakeCache.txt on line 216. Offending entry: >>>>>>> 530f3d886d4048454802e7ef0936100a77ebec8b
+CMake Error: Parse error in cache file /Users/plettie/Desktop/ft_ls/cmake-build-debug/CMakeCache.txt on line 226. Offending entry: <<<<<<< HEAD
+CMake Error: Parse error in cache file /Users/plettie/Desktop/ft_ls/cmake-build-debug/CMakeCache.txt on line 230. Offending entry: >>>>>>> 530f3d886d4048454802e7ef0936100a77ebec8b
+CMake Error: Parse error in cache file /Users/plettie/Desktop/ft_ls/cmake-build-debug/CMakeCache.txt on line 285. Offending entry: <<<<<<< HEAD
+CMake Error: Parse error in cache file /Users/plettie/Desktop/ft_ls/cmake-build-debug/CMakeCache.txt on line 289. Offending entry: >>>>>>> 530f3d886d4048454802e7ef0936100a77ebec8b
+CMake Error: The current CMakeCache.txt directory /Users/plettie/Desktop/ft_ls/cmake-build-debug/CMakeCache.txt is different than the directory /Users/wstygg/Desktop/git_ls/cmake-build-debug where CMakeCache.txt was created. This may result in binaries being created in the wrong place. If you are not sure, reedit the CMakeCache.txt
+CMake Error: The source "/Users/plettie/Desktop/ft_ls/CMakeLists.txt" does not match the source "/Users/wstygg/Desktop/git_ls/CMakeLists.txt" used to generate cache.  Re-run cmake with a different source directory.
+Cannot read project file /Users/plettie/Desktop/ft_ls/cmake-build-debug/test.cbp

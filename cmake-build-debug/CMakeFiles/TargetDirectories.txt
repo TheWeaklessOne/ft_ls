@@ -1,0 +1,9 @@
+<<<<<<< HEAD
+/Users/plettie/Desktop/ft_ls/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/plettie/Desktop/ft_ls/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/plettie/Desktop/ft_ls/cmake-build-debug/CMakeFiles/test.dir
+=======
+/Users/wstygg/Desktop/git_ls/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/wstygg/Desktop/git_ls/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/wstygg/Desktop/git_ls/cmake-build-debug/CMakeFiles/test.dir
+>>>>>>> 530f3d886d4048454802e7ef0936100a77ebec8b
