@@ -6,61 +6,17 @@
 /*   By: wstygg <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 17:32:19 by wstygg            #+#    #+#             */
-/*   Updated: 2019/08/08 17:32:20 by wstygg           ###   ########.fr       */
+/*   Updated: 2019/09/15 18:50:37 by wstygg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/ft_ls.h"
 
-void			delete_latent_file(t_data *data)
+char			*path_normalize(char **path, int to_free)
 {
-	t_ls *head = data->ls;
-	t_ls *temp = head;
-	t_ls		*helping;
-
-	while (temp)
-	{
-		helping = temp;
-		if (temp->entry->d_name[0] == '.')
-		{
-			if (temp == head) // если элемент который надо удалить первый
-				head = temp->next;
-			else
-				helping->next = temp->next;
-			free(temp);
-		}
-		temp = temp->next;
-	}
-	data->ls = head;
-}
-
-void				rev_struct(t_data *data)
-{
-	t_ls *ls;
-
-	ls = data->ls;
-	t_ls *current;
-	t_ls *prev = NULL;
-	t_ls *next = NULL;
-	t_ls *tmp;
-
-
-	current = ls;
-	while (current != NULL)
-	{
-		next = current->next;
-		current->next = prev;
-		prev = current;
-		current = next;
-	}
-	data->ls = prev;
-}
-
-char				*path_normalize(char **path, int flag)
-{
-	char			*ret;
-	size_t			len;
-	size_t			i;
+	char		*ret;
+	size_t		len;
+	size_t		i;
 
 	len = ft_strlen(*path);
 	while ((*path)[--len] == '/')
@@ -72,15 +28,15 @@ char				*path_normalize(char **path, int flag)
 		ret[i] = (*path)[i];
 	ret[len] = '/';
 	ret[len + 1] = '\0';
-	if (flag)
+	if (to_free)
 		free(*path);
 	return (ret);
 }
 
-t_ls				*fill_first(struct dirent *entry, char *path)
+t_ls			*fill_first(struct dirent *entry, char *path)
 {
-	char			*fullpath;
-	t_ls			*ls;
+	char		*fullpath;
+	t_ls		*ls;
 
 	ls = malloc(sizeof(t_ls));
 	ls->next = NULL;
@@ -92,10 +48,10 @@ t_ls				*fill_first(struct dirent *entry, char *path)
 	return (ls);
 }
 
-t_ls				*add_one(struct dirent *entry, char *path)
+t_ls			*add_one(struct dirent *entry, char *path)
 {
-	t_ls			*ret;
-	char			*fullpath;
+	t_ls		*ret;
+	char		*fullpath;
 
 	if (!(ret = malloc(sizeof(t_ls))))
 		return (NULL);

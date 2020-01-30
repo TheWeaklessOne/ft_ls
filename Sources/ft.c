@@ -6,11 +6,23 @@
 /*   By: wstygg <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 17:33:03 by wstygg            #+#    #+#             */
-/*   Updated: 2019/08/08 17:33:04 by wstygg           ###   ########.fr       */
+/*   Updated: 2019/09/06 18:56:53 by wstygg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/ft_ls.h"
+
+void			ft_putpath(char *s, t_data *data)
+{
+	int			index;
+
+	index = -1;
+	while (s[++index])
+		write(1, &s[index], 1);
+	if (data->flags[PATH])
+		write(1, ":\n", 2);
+	data->flags[PATH] = 0;
+}
 
 char			*ft_strchr(const char *s, int c)
 {

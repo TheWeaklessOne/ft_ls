@@ -6,53 +6,103 @@
 /*   By: plettie <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 23:48:18 by plettie           #+#    #+#             */
-/*   Updated: 2019/08/11 23:48:19 by plettie          ###   ########.fr       */
+/*   Updated: 2019/09/23 23:31:43 by wstygg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/ft_ls.h"
+#include <stdio.h>
 
-char		*ft_write_to_str(char *str, t_data *data)
+int					ft_write_to_str(t_data *data)
 {
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (data->ls != NULL && (!(data->flags[LS_L])))
+	if (!data->flags[LS_A] && data->ls->entry->d_name[0] == '.')
+		return (1);
+	if (data->flags[LS_G])
 	{
-		while(data->ls->entry->d_name[i])
-		{
-			str[j] = data->ls->entry->d_name[i];
-			i++;
-			j++;
-		}
-		str[j] = '\t';
-		j++;
-		i = 0;
-		data->ls = data->ls->next;
+		if (S_ISDIR(data->ls->stat.st_mode))
+			write(1, "\x1b[34m", 5);
+		else if (S_IXUSR & data->ls->stat.st_mode)
+			write(1, "\x1b[31m", 5);
 	}
+	ft_putstr(data->ls->entry->d_name, 0, 0, 0);
+	data->flags[LS_G] ? write(1, "\x1b[0m", 4) : 0;
 	if (data->flags[LS_L])
-		str = ft_write_with_l(str, data);
-	return (str);
+		write(1, "\n", 1);
+	else if (data->flags[LS_1])
+	{
+		write(1, "\n", 1);
+		return (1);
+	}
+	return (0);
 }
 
-void		vivod(t_data *data)
+void				do_l_flag(t_data *data)
 {
-	char *str;
-	int j;
-	int len;
-
-	if (data->flags[LS_L])
-		free(str);
-	str = malloc(sizeof(char *) * 20000);
-	str = ft_write_to_str(str, data);
-	len = ft_strlen(str);
-	j = 0;
-	while (j < len)
+	check_total(data);
+	while (data->ls)
 	{
-		write(1, &str[j], 1);
-		j++;
+		ft_write_with_l(data);
+		ft_write_to_str(data);
+		data->ls = data->ls->next;
 	}
-	free(str);
+}
+
+int					find_max(t_ls *ls)
+{
+	size_t			max;
+
+	max = 0;
+	while (ls)
+	{
+		if (ft_strlen(ls->entry->d_name) > max)
+			max = ft_strlen(ls->entry->d_name);
+		ls = ls->next;
+	}
+	return (max);
+}
+
+void				vivod2(t_data *data)
+{
+	int				times;
+
+	if (!(ft_write_to_str(data)))
+	{
+		data->width += data->one_width;
+		if (data->width + data->one_width >= data->console_w)
+		{
+			write(1, "\n", 1);
+			data->width = 0;
+			return ;
+		}
+		times = ft_strlen(data->ls->entry->d_name);
+		while (times < data->one_width)
+		{
+			write(1, " ", 1);
+			times++;
+		}
+	}
+}
+
+void				vivod(t_data *data)
+{
+	struct winsize	w;
+
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+	if (data->flags[LS_L])
+		do_l_flag(data);
+	else
+	{
+		data->one_width = (find_max(data->ls) / 8 + 1) * 8;
+		data->console_w = w.ws_col;
+		while (data->ls)
+		{
+			vivod2(data);
+			data->ls = data->ls->next;
+		}
+		if (data->flags[PUPA])
+		{
+			write(1, "\n", 1);
+			data->flags[PUPA] = 0;
+		}
+	}
 }
