@@ -13,7 +13,7 @@ file. But, what about the directories? Special files? Rights, dates or sizes of 
 ## Installation
 1. Download/Clone this repo
 ```
-git clone https://github.com/pankratdodo/ft_ls-42.git
+git clone https://github.com/TheWeaklessOne/ft_ls.git
 ```
 2. `cd` into directrory and run `make`
 ```
